@@ -3,7 +3,7 @@ input_channels=3
 
 
 # RealNVP parameters
-num_scales=3s
+num_scales=3
 middle_channels=64
 
 
