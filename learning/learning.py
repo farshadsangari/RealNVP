@@ -66,7 +66,7 @@ def Train_mode(model,
                 loop_train.set_description(f'Train mode - epoch : {epoch}')
                 loop_train.set_postfix(Loss_Train = "{:.4f}".format(avg_train_loss.avg),refresh=True)
                 if (epoch % saving_checkpoint_freq) == 0 : 
-                    models.save(
+                    utils.save_model(
                         file_path=saving_checkpoint_path,
                         file_name=f"{saving_prefix}{epoch}.ckpt",
                         model=model,
