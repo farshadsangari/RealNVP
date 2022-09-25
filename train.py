@@ -1,6 +1,5 @@
 import math
 import torch
-from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup
 
 ######  Local packages  ######
@@ -16,16 +15,10 @@ def main(args):
     cuda = True if args.gpu and torch.cuda.is_available() else False
     Tensor = torch.cuda.FloatTensor if cuda else torch.Tensor
     
-        
-    list_of_celebs_path = data.get_file_list(args.base_raw_data_path)
-    list_of_celebs_path_train,list_of_celebs_path_val = data.split_data(list_of_celebs_path)
-    data_transform = data.transform_celeba()
-
-    train_data = data.myDataset(list_of_celebs_path_train,data_transform)
-    val_data = data.myDataset(list_of_celebs_path_val,data_transform)
-
-    train_dataloader = DataLoader(dataset = train_data , batch_size = args.batch_size,shuffle=True)
-    val_dataloader = DataLoader(dataset = val_data , batch_size = args.batch_size,shuffle=True)
+    
+    train_dataloader,val_dataloader = data.dataloader(
+                base_raw_data_path = args.base_raw_data_path,
+                batch_size = args.batch_size)
     
     model = models.realNVP(num_scales = args.num_scales,
                     current_scale_idx = 0,
