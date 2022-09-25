@@ -1,6 +1,5 @@
 import math
 import torch
-import torch.optim as optim
 from torch.utils.data import DataLoader
 from transformers import get_linear_schedule_with_warmup
 
@@ -10,7 +9,7 @@ import models as models
 import loss_function as loss_function
 import data as data
 import utils as utils
-
+import optim as optim
 
 
 def main(args):
@@ -40,7 +39,8 @@ def main(args):
                                           distribution_std=args.distribution_std,
                                           k=args.possible_values_in_each_input_dimension)
     
-    optimizer = optim.Adam(
+    
+    optimizer = optim.adam_optim(
                 params=model.parameters(),
                 lr=args.lr,
                 weight_decay=args.weight_decay)
